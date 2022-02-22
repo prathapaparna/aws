@@ -9,3 +9,4 @@ create a load balancer
  follow the below link to for ECR and ECS
  
  https://mydeveloperplanet.com/2021/09/07/how-to-deploy-a-spring-boot-app-on-aws-ecs-cluster/
+ https://mydeveloperplanet.com/2021/10/12/how-to-deploy-a-spring-boot-app-on-aws-fargate/
