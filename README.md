@@ -17,9 +17,11 @@ create a load balancer
  https://mydeveloperplanet.com/2021/10/12/how-to-deploy-a-spring-boot-app-on-aws-fargate/
 
 
-CLB ---> no condition for config directly we connect ec2 servers
-ALB ---> we need to cretae target group attach tg as a listerner -- http/https protocol
-NLB ----> " " ---> tcp/tcl protocol---> very high perfomance
+###CLB ---> no condition for config directly we connect ec2 servers
+
+###ALB ---> we need to cretae target group attach tg as a listerner -- http/https protocol
+
+###NLB ----> " " ---> tcp/tcl protocol---> very high perfomance
 
 
 ## Terraform
