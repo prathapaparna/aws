@@ -20,3 +20,8 @@ create a load balancer
 CLB ---> no condition for config directly we connect ec2 servers
 ALB ---> we need to cretae target group attach tg as a listerner -- http/https protocol
 NLB ----> " " ---> tcp/tcl protocol---> very high perfomance
+
+
+## Terraform
+
+https://gauravguptacloud.medium.com/terraform-state-shared-storage-for-state-files-how-to-manage-7912907436b7
