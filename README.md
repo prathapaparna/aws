@@ -4,6 +4,8 @@ https://stackoverflow.com/questions/45164355/what-is-vpc-subnet-in-aws
 
 https://www.linuxtechi.com/how-to-configure-vpc-in-aws/
 
+https://stackoverflow.com/questions/46616072/cidr-blocks-aws-explanation
+
 Recover lost key pair
 https://medium.com/the-10x-dev/how-to-recover-access-login-to-your-aws-instance-after-losing-your-pem-keypair-file-e0d31bae2da4
 
