@@ -25,6 +25,11 @@ create a load balancer
 
 ###NLB ----> " " ---> tcp/tcl protocol---> very high perfomance
 
+##S3
+
+### s3 life cycle management
+https://medium.com/avmconsulting-blog/aws-s3-lifecycle-management-1ed2f67c3b73
+
 
 ## Terraform
 
