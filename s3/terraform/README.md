@@ -10,10 +10,15 @@ object lock
 # life_cycle_configuration
 - Manages lifecycle of objects stored in an  S3 bucket.
 - These rules help to reduce storage costs by automatically transitioning objects to different storage classes or deleting them after a certain period.
+  
   **Actions:**
+  
 **Transition:** Move objects to another storage class after a certain number of days.
+
 For example, you can move objects to the S3 Standard-IA (Infrequent Access) storage class after 30 days, and then to S3 Glacier after 365 days.
+
 **Expiration:** Permanently delete objects after a certain period.
+
 **Abort Incomplete Multipart Uploads:** Automatically delete incomplete multipart uploads after a specific time.
 ```
 resource "aws_s3_bucket_lifecycle_configuration" "s3_bucket_lifecycle_rule" {
@@ -66,6 +71,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "s3_bucket_lifecycle_rule" {
 }
 ```
 # server_side_encryption
+
 - Server-Side Encryption (SSE) in Amazon S3 refers to the process of encrypting data at rest, meaning that data stored in S3 is automatically encrypted by AWS before being saved to disk and automatically decrypted when accessed by authorized users. 
 This ensures that even if the data is accessed without permission, it cannot be read or understood.
 - we can encrypt the key by kms keys or aws managed keys
@@ -89,7 +95,7 @@ Each S3 bucket and object has an associated ACL, which defines which AWS account
 **Note**
 - instead of acl and bucket policy we can use IAM roles and IAM policies
 - **example iam policy**
-  ```
+```
   {
     "Version": "2012-10-17",
     "Statement": [
@@ -107,6 +113,9 @@ Each S3 bucket and object has an associated ACL, which defines which AWS account
     ]
 }
 ```
+
+
+
 
   
 
