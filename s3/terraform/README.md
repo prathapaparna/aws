@@ -6,6 +6,7 @@ versioning
 bucket policy
 replication configuration
 object lock
+static website hosting
 
 # life_cycle_configuration
 - Manages lifecycle of objects stored in an  S3 bucket.
@@ -113,6 +114,13 @@ Each S3 bucket and object has an associated ACL, which defines which AWS account
     ]
 }
 ```
+# Versioning
+
+Versioning in Amazon S3 is a feature that allows you to keep multiple versions of an object in the same S3 bucket. This means that every time you upload a new version of an object with the same key (name), S3 keeps the previous version(s) instead of overwriting the object. Versioning provides a way to recover from unintended overwrites or deletions.
+
+# replication_configuration
+
+
 
 
 
