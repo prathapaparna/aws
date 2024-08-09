@@ -1,12 +1,12 @@
-buckets
-lifecycle configuration
-serverside encryption
-acl (access-control-list)
-versioning
-bucket policy
-replication configuration
-object lock
-static website hosting
+- buckets
+- lifecycle configuration
+- serverside encryption
+- acl (access-control-list)
+- versioning
+- bucket policy
+- replication configuration
+- object lock
+- static website hosting
 
 # life_cycle_configuration
 - Manages lifecycle of objects stored in an  S3 bucket.
@@ -119,6 +119,10 @@ Each S3 bucket and object has an associated ACL, which defines which AWS account
 Versioning in Amazon S3 is a feature that allows you to keep multiple versions of an object in the same S3 bucket. This means that every time you upload a new version of an object with the same key (name), S3 keeps the previous version(s) instead of overwriting the object. Versioning provides a way to recover from unintended overwrites or deletions.
 
 # replication_configuration
+- Replication Configuration in Amazon S3 refers to the setup that allows you to automatically replicate objects from one S3 bucket (source bucket) to another bucket (destination bucket), potentially in a different AWS region or within the same region. This feature is known as S3 Replication and includes Cross-Region Replication (CRR) and Same-Region Replication (SRR).
+
+# Object Locking:
+Object Locking in Amazon S3 is a feature that helps you prevent objects from being deleted or overwritten for a fixed amount of time or indefinitely. This feature is commonly used to enforce WORM (Write Once, Read Many) protection on objects, which is critical for meeting regulatory and compliance requirements.
 
 
 
