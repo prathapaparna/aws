@@ -9,55 +9,73 @@ AWS Lambda has limited space (512 MB), so we can package the ClamAV binary and v
   
 ## create a lambda function using terraform
 ```
-data "aws_subnet_ids" "edb_private" {
-  vpc_id = var.primary_vpc_id
-  filter {
-    name   = "tag:Name"
-    values = ["*private*"]
-  }
-}
-
-data "aws_security_groups" "edb_eks_security_groups" {
-  filter {
-    name   = "group-name"
-    values = ["edbhub-*-cluster-sg"]
-  }
-  filter {
-    name   = "vpc-id"
-    values = ["${var.primary_vpc_id}"]
-  }
-}
-
-resource "aws_lambda_function" "edb_lambda_function" {
-  function_name = var.aws_lambda_name
-  filename      = "${path.module}/../../files/lambdaSampleCode.zip"
-  role          = var.role_arn
-  handler       = "src/app.lambdaHandler"
-  runtime       = var.lambda_runtime
-  tags          = var.tags
-  layers        = ["${var.lambda_vault_layer_arn}"]
-  timeout       = var.lambda_timeout
+### Lambda function
+resource "aws_lambda_function" "scan_provided_file" {
+  function_name = "${local.prefix_region}-scan-provided-file"
+  description   = "Scans a file provided as base64 for malware and quarantines it if necessary"
+  filename      = data.archive_file.lambda_placeholder_code.output_path
+  role          = aws_iam_role.scan_provided_file_lambda_role.arn
+  tags          = local.tags
+  publish       = true
+  runtime       = "nodejs20.x"
+  handler       = "app.lambdaHandler"
+  timeout       = 120
+  memory_size   = 4096
+ 
   environment {
     variables = {
-      VAULT_ADDR          = var.vault_addr,
-      VAULT_AUTH_ROLE     = var.vault_auth_role,
-      VAULT_AUTH_PROVIDER = "aws",
-      VAULT_K8S_ENDPOINT  = var.vault_k8s_endpoint,
-      VAULT_NAMESPACE     = var.vault_namespace,
-      VAULT_SECRET_PATH   = var.vault_secret_path,
-      VAULT_SKIP_VERIFY   = "true",
-      VLE_VAULT_ADDR      = var.vault_addr,
-      NODE_ENV            = var.node_env
+      BUCKET_MALWARE_DEFINITIONS = aws_s3_bucket.malware_definitions.id
+      BUCKET_QUARANTINE          = aws_s3_bucket.quarantine.id
+      NODE_OPTIONS               = "--enable-source-maps"
     }
   }
+ 
+  ephemeral_storage {
+    size = 1024
+  }
+ 
   lifecycle {
     ignore_changes = [
-      filename,
+      filename
     ]
   }
+ 
   vpc_config {
-    subnet_ids         = data.aws_subnet_ids.edb_private.ids
-    security_group_ids = data.aws_security_groups.edb_eks_security_groups.ids
+    subnet_ids         = data.aws_subnets.restricted.ids
+    security_group_ids = [aws_security_group.scan_provided_file_lambda.id]
   }
+ 
+  depends_on = [aws_cloudwatch_log_group.scan_provided_file_lambda, aws_iam_role_policy_attachment.scan_provided_file_lambda_role]
+}
+ 
+# Alias for the active version of the lambda - called by API Gateway
+resource "aws_lambda_alias" "scan_provided_file" {
+  name             = "live"
+  function_name    = aws_lambda_function.scan_provided_file.function_name
+  function_version = aws_lambda_function.scan_provided_file.version
+ 
+  # alias will be updated as part of deployment pipeline. we don't want terraform to revert deployed changes
+  lifecycle {
+    ignore_changes = [
+      function_version,
+    ]
+  }
+}
+ 
+# Provisioned Concurrency on the active version of the lambda
+resource "aws_lambda_provisioned_concurrency_config" "scan_provided_file" {
+  function_name                     = aws_lambda_alias.scan_provided_file.function_name
+  provisioned_concurrent_executions = 3
+  qualifier                         = aws_lambda_alias.scan_provided_file.name
+}
+ 
+## CloudWatch Log Group
+resource "aws_cloudwatch_log_group" "scan_provided_file_lambda" {
+  name              = "/aws/lambda/${local.prefix_region}-scan-provided-file"
+  retention_in_days = 30
+  lifecycle {
+    prevent_destroy = false
+  }
+  tags = local.tags
 }
 ```
