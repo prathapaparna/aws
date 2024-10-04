@@ -5,8 +5,8 @@
 
 **Subnets:**
 - A subnet is a range of IP addresses in your VPC. You can divide your VPC into multiple subnets in different Availability Zones (AZs).
-Public Subnet: A subnet that is associated with an Internet Gateway (IGW), allowing instances in this subnet to connect to the internet.
-Private Subnet: A subnet without direct internet access. Instances in private subnets typically communicate with the internet via a NAT Gateway or NAT Instance.
+- **Public Subnet:** A subnet that is associated with an Internet Gateway (IGW), allowing instances in this subnet to connect to the internet.
+- **Private Subnet:** A subnet without direct internet access. Instances in private subnets typically communicate with the internet via a NAT Gateway or NAT Instance.
 
 **Route Tables:**
 - A route table contains rules (routes) that determine where network traffic is directed. Each subnet must be associated with a route table.
