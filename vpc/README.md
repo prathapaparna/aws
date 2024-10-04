@@ -1,4 +1,5 @@
 #  VPC
+[Terraform_vpc_module](https://github.com/prathapaparna/Terraform/tree/main/terraform-modules-vpc-scratch)
 - A VPC is a dedicated virtual network in AWS, allowing us to isolate our resources from other virtual networks within the same AWS account. We can specify an IP range for the VPC, and within it, create subnets (a subnet is an IP range within the VPC), gateways, and security groups.
 
 ## Key Components of a VPC
