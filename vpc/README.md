@@ -34,3 +34,9 @@
      - there are 2 types of vpc endpoints
         - **Gateway Endpoints** are used for S3 and DynamoDB, adding entries in the VPC’s route table.
         - **Interface Endpoints** are used for many other services, creating ENIs in subnets for private connectivity.
+      
+## VPC peering vs endpoint vs VPN vs Direct connect
+- **VPC Peering:**(two-vpcs) Best for connecting two VPCs in a private network setup.
+- **VPC Endpoint:**(vpc-to-aws services) Ideal for accessing AWS services securely within your VPC without public internet exposure.
+- **VPN:**(onprimses-aws) A cost-effective option for securely connecting on-premises networks to AWS over the internet.
+- **Direct Connect:**(onprimses-aws) High-speed, reliable connection for large-scale, latency-sensitive workloads between on-premises and AWS.
