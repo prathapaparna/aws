@@ -28,7 +28,10 @@
         - public hosted zone --> any one can access those domains who has internet
         - Private hosted zone --> for internal access with in our vpc range
     - Update Domain Name Servers (if registered outside Route 53) (optional)
-    - add DNS records(A,CNAME) 
+    - add DNS records
+         - record type(A,CNAME)
+         - record name ()
+         - value (load balancer endpoint, s3 ) 
     - configure routing policies(simple, weighted,latency, etc...)
     - setup health checks
        
