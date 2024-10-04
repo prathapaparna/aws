@@ -28,3 +28,9 @@
 **VPN and Direct Connect:**
 - A Virtual Private Network (VPN) or AWS Direct Connect can be used to securely connect your VPC to your on-premises network.
   
+## Vpc connections
+- Instances within the same VPC can communicate using their private IPs without the need for an internet gateway or NAT gateway. This can be achieved by properly configuring the security groups.
+- By using a **VPC endpoint**, we can securely connect vpc to AWS services and other services without using the internet or a NAT gateway. This ensures that traffic between your VPC and the service stays entirely within the AWS network, improving security and reducing costs.
+     - there are 2 types of vpc endpoints
+        - **Gateway Endpoints** are used for S3 and DynamoDB, adding entries in the VPC’s route table.
+        - **Interface Endpoints** are used for many other services, creating ENIs in subnets for private connectivity.
